@@ -10,7 +10,9 @@
     "polymer": "Polymer/polymer#^1.2.0",
     "geohash": "*",
     "geo-location": "^1.0.6",
-    "google-map": "^1.1.11"
+    "google-map": "^1.1.11",
+    "locals-whisperer": "https://github.com/locals-world/locals-whisperer.git",
+    "web3-wallet": "^0.0.14"
   },
   "devDependencies": {},
   "ignore": []
