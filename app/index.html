@@ -72,7 +72,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       keystore="{{keystore}}"
       host="http://faucet.ma.cx:8545"
       web3="{{web3}}"
-      password="test"></web3-wallet>      
+      password="test"></web3-wallet>
 
 
     <paper-drawer-panel id="paperDrawerPanel">
@@ -88,7 +88,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-menu attr-for-selected="data-route" selected="[[route]]">
           <a data-route="home" href="{{baseUrl}}">
             <iron-icon icon="home"></iron-icon>
-            <span>Home ({{account}})</span>
+            <span>Home</span>
           </a>
 
           <a data-route="users" href="{{baseUrl}}users">
@@ -100,6 +100,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <iron-icon icon="mail"></iron-icon>
             <span>Contact</span>
           </a>
+
+          <p>{{account}}</p>
+          <p>{{balance}}</p>
         </paper-menu>
       </paper-scroll-header-panel>
 
@@ -110,7 +113,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
 
           <span class="space"></span>
-
           <!-- Toolbar icons -->
           <paper-icon-button icon="refresh"></paper-icon-button>
           <paper-icon-button icon="search"></paper-icon-button>

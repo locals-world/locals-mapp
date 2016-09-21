@@ -6,6 +6,7 @@ contract localsInOut is owned {
 
   event OfferAdded(uint proposalID, address recipient, uint amount, string description);
   event Confirmed(uint offerNumber,  bool supportsProposal, address confirmator);
+  event OfferClaimed(uint offerNumber, address claimer, address creator, uint amount);
   Offer[] public offers;
   uint public numOffers;
 
@@ -62,7 +63,11 @@ contract localsInOut is owned {
 
   function claim(uint offerNumber) {
     Offer o = offers[offerNumber];
-    o.claimer = msg.sender;
+    if(msg.value===o.amount){
+      o.claimer = msg.sender;
+      o.status = 2;
+      OfferClaimed(offerNumber, o.claimer, o.creator, o.amount);
+    }
   }
 
   /* */
@@ -82,7 +87,7 @@ contract localsInOut is owned {
 
   function executeOffer(uint offerNumber, bytes transactionBytecode) returns (int result) {
       Offer o = offers[offerNumber];
-      // mint offer amount and send to claimer
+      // amount 1% to DAO and rest send to claimer
   }
 
   function kill() { if (msg.sender == owner) suicide(owner); }
