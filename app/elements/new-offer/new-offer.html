@@ -31,7 +31,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <paper-input label="Starts"></paper-input>
       <paper-input label="Duration"></paper-input>
       <paper-input label="Where" placeholder="Here"></paper-input>
-      <paper-button raised>Publish offer</paper-button>
+      <paper-button raised on-tap="newOffer">Publish offer</paper-button>
     </paper-material>
   </template>
   <script>
@@ -46,7 +46,61 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           value: 'new-offer',
           notify: true
+        },
+        web3: {
+          type: Object,
+        },
+        account: {
+          type: String
         }
+      },
+
+      attached: function(){
+        //this.web3 = document.querySelector('web3-wallet');
+      },
+      newOffer: function() {
+        console.log('new offer', this.web3);
+
+        // function newOffer(
+        //    address _claimer,
+        //    uint _amount,
+        //    string _descriptionipfs,
+        //    uint _validityStart,
+        //    uint _duration
+        //  )
+
+        var self = this;
+        app.helpers.getfile('../../contracts/localsInOut.json', function(err, contractjson) {
+          console.log(err, contractjson);
+          self.web3.eth.getGasPrice(function(err, result) {
+            var gasPrice = result.toNumber(10);
+            var MyContract = self.web3.eth.contract(contractjson.abi);
+            var myContractInstance = MyContract.at(contractjson.address);
+            var account = app.helpers.fixaddress(self.account);
+            result = myContractInstance.newOffer.sendTransaction('0x0',10,'ipfshash',1,2, {
+                from: account,
+                gasPrice: gasPrice,
+                gasLimit: 600000,
+                gas: 600000,
+                data: contractjson.bytecode
+              },
+              function(err, result) {
+                if (err !== null) {
+                  console.log(err);
+                  console.log('ERROR: Transaction didnt go through. See console.');
+                } else {
+                  console.log('Transaction Successful!');
+                  //self.progress = 'addedtoindex';
+                  console.log('Tx hash=', result);
+                  // set vote status to TxHash received
+                  //self.votestatus = 2;
+                  //self.transactionHash = result;
+                }
+                //fn(err, result);
+              });
+          });
+        });
+
       }
     });
   })();

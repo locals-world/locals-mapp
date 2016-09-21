@@ -70,7 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       account="{{account}}"
       balance="{{balance}}"
       keystore="{{keystore}}"
-      host="http://localhost:8545"
+      host="http://faucet.ma.cx:8545"
       web3="{{web3}}"
       password="test"></web3-wallet>      
 
@@ -145,7 +145,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <section data-route="newoffer">
                 <paper-icon-button icon="close" on-tap="home"></paper-icon-button>
-                <new-offer></new-offer>
+                <new-offer account="{{account}}" web3="{{web3}}"></new-offer>
             </section>
 
             <section data-route="contact">
@@ -185,6 +185,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>
+  <script src="scripts/helpers.js"></script>
+
   <!-- endbuild-->
 </body>
 
