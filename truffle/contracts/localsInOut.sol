@@ -61,7 +61,7 @@ contract localsInOut is owned {
   }
 
   function claim(uint offerNumber) {
-    Offer o = offers[offerID];
+    Offer o = offers[offerNumber];
     o.claimer = msg.sender;
   }
 
