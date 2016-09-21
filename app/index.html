@@ -63,6 +63,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
 
+
+  <web3-wallet
+      id="web3wallet"
+      walletname="locals-wallet"
+      account="{{account}}"
+      balance="{{balance}}"
+      keystore="{{keystore}}"
+      host="http://localhost:8545"
+      web3="{{web3}}"
+      password="test"></web3-wallet>      
+
+
     <paper-drawer-panel id="paperDrawerPanel">
       <!-- Drawer Scroll Header Panel -->
       <paper-scroll-header-panel drawer fixed>
@@ -76,7 +88,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-menu attr-for-selected="data-route" selected="[[route]]">
           <a data-route="home" href="{{baseUrl}}">
             <iron-icon icon="home"></iron-icon>
-            <span>Home</span>
+            <span>Home ({{account}})</span>
           </a>
 
           <a data-route="users" href="{{baseUrl}}users">
