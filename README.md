@@ -1,9 +1,9 @@
 #Locals iteration 3
 
 ## installing
-bower install
-npm install
-gulp serve
+- npm install
+- bower install
+- gulp serve
 
 
 ## compiling and deploying the DAPP
@@ -23,6 +23,3 @@ truffle migrate --reset
 ## copy the DAPP contracts to the web frontend
 
 ``node script/
-
-
-

@@ -10,24 +10,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import" href="../../bower_components/geo-location/geo-location.html">
 
 <dom-module id="my-greeting">
   <template>
-    <style include="shared-styles">
-      :host {
-        display: block;
-      }
 
-      span,
-      input {
-        @apply(--paper-font-body2);
-      }
+    <style>
+    :host {
+      display: block;
+    }
+
+    span {
+      @apply(--paper-font-body1);
+    }
+
+    #googlemap {
+      width: 100vw;
+      height: 90vh;
+    }
     </style>
 
-    <h2 class="page-title">{{greeting}}</h2>
-    <span>Update text to change the greeting.</span>
-    <!-- Listens for "input" event and sets greeting to <input>.value -->
-    <input value="{{greeting::input}}">
+    <geo-location watchpos highAccuracy id="geolocation" longitude="{{longitude}}" latitude="{{latitude}}"></geo-location>
+    <google-map api-key="AIzaSyC-ywBkfduvR3yeC6sf8ePFre1-cSuL8oY" map="{{map}}" zoom="{{zoom}}" latitude="{{latitude}}" longitude="{{longitude}}" id="googlemap">
+      <template is="dom-repeat" items="{{ data }}">
+        <google-map-marker latitude="{{item.latitude}}" longitude="{{item.longitude}}"></google-map-marker>
+      </template>
+    </google-map>
   </template>
 
   <script>
@@ -42,7 +51,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: String,
             value: 'Welcome!',
             notify: true
+          },
+
+          data: {
+            type: Array,
+            value: [{'latitude': 51.230101399999995, 'longitude': 4.386792},
+                    {'latitude': 51.231101399999995, 'longitude': 4.386792},
+                    {'latitude': 51.232101399999995, 'longitude': 4.386792},
+                    {'latitude': 51.233101399999995, 'longitude': 4.386792}]
+          },
+
+          zoom: {
+            type: Number,
+            value: 15
           }
+        },
+
+        ready: function(){
+          var self = this;
+
+          this.$.geolocation.addEventListener('geo-response', function(e) {
+            self.latitude = e.detail.latitude;
+            self.longitude = e.detail.longitude;
+            self.$.googlemap.resize();
+
+            console.log('got geo: ', self.latitude, ' - ', self.longitude);
+            //afstand = self.CalculateDistance(latitude, longitude, oldLatitude, oldLongitude);
+            //   if(afstand>0.001){
+            //     if(!locationPaused){
+            //       this.fire('poschanged');
+            //       oldLatitude = latitude;
+            //       oldLongitude = longitude;
+            //     }
+            //   }
+            });
         }
       });
     })();
