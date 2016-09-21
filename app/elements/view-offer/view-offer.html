@@ -1,0 +1,126 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/google-map/google-map.html">
+
+<dom-module id="view-offer">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      paper-material {
+        padding: 12px;
+        margin: 24px;
+      }
+      google-map {
+        height: 200px;
+      }
+    </style>
+    <paper-material elevation="1">
+      <template is="dom-if" if="{{_is(claimview,'first')}}">
+        <div>
+          <div>{{offerid}}</div>
+          <h1>#rideshare</h1>
+          <google-map api-key="AIzaSyC-ywBkfduvR3yeC6sf8ePFre1-cSuL8oY" map="{{map}}" zoom="{{zoom}}" latitude="{{latitude}}" longitude="{{longitude}}" id="googlemap" disable-default-ui>
+              <google-map-marker offerid="{{item.info}}" click-events on-google-map-marker-click="selectoffer" latitude="{{latitude}}" longitude="{{longitude}}"></google-map-marker>
+          </google-map>
+          <p>I need a ride tonight at 4pm from Gloriantlaan 39 to Kattendijkdok-Oostkaai.</p>
+          <h2>&Delta; 10</h2>
+          <p>
+            kingflurkel (21 localrep)
+          </p>
+          <paper-button raised on-tap="claim">claim</paper-button>
+        </div>
+      </template>
+      <template is="dom-if" if="{{_is(claimview,'second')}}">
+        <div>
+          <h1>Claim this #rideshare</h1>
+          <p>You're sending &Delta; 10 to this offer.</p>
+          <p>
+            Upon successful completion of this ride, you will get this back, topped with your client's fee.
+          </p>
+          <paper-button raised on-tap="startclaim">transfer &Delta; 10 to the offer</paper-button>
+          <paper-button raised>get out</paper-button>
+        </div>
+      </template>
+      <template is="dom-if" if="{{_is(claimview,'third')}}">
+        <div>
+          <h1>Claiming...</h1>
+          <template is="dom-repeat" items="{{status}}">
+          <p>{{item.msg}}</p>
+          </template>
+          <p>
+            Don't close this window.
+          </p>
+        </div>
+      </template>
+      <template is="dom-if" if="{{_is(claimview,'fourth')}}">
+        <h1>All done.</h1>
+        <p>Go out there now to get the prize :)</p>
+        <paper-button raised on-tap="close">Go!</paper-button>
+      </template>
+    </paper-material>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'view-offer',
+
+      properties: {
+        offerid: {
+          type: String,
+          value: '',
+          observer: '_offerid'
+        }
+      },
+
+      ready: function() {
+        this.claimview = 'first';
+      },
+
+      claim: function() {
+        this.claimview = 'second';
+      },
+
+      close: function() {
+        page('/');
+      },
+
+      startclaim: function() {
+        this.claimview = 'third';
+        var self = this;
+        window.setTimeout(function(){
+          self.claimview = "fourth";
+        }, 3000);
+      },
+
+      _offerid: function() {
+        console.log('got offer id in detail ', this.offerid);
+      },
+
+      _is: function(a, b) {
+      if (b === undefined){
+        b = true;
+      }
+      //console.log(a ,'(',typeof a,') is',b,'(',typeof b,') they are equal for ==',a == b,', they are equal for ===',a === b);
+      return a === b;
+    }
+
+
+
+    });
+  })();
+  </script>
+</dom-module>
