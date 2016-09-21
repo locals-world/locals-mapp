@@ -77,32 +77,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         },
 
-        ready: function(){
+        ready: function() {
           var self = this;
 
           this.$.geolocation.addEventListener('geo-response', function(e) {
             self.latitude = e.detail.latitude;
             self.longitude = e.detail.longitude;
             self.$.googlemap.resize();
-
             console.log('got geo: ', self.latitude, ' - ', self.longitude);
-            //afstand = self.CalculateDistance(latitude, longitude, oldLatitude, oldLongitude);
-            //   if(afstand>0.001){
-            //     if(!locationPaused){
-            //       this.fire('poschanged');
-            //       oldLatitude = latitude;
-            //       oldLongitude = longitude;
-            //     }
-            //   }
-            });
+          });
         },
 
-        selectoffer: function(e){
+        selectoffer: function(e) {
           //console.log('arker',e.target.offerid);
-          page('/users/'+e.target.offerid);
+          page('/users/' + e.target.offerid);
         },
 
-        goAddOffer: function(){
+        goAddOffer: function() {
           page('/newoffer');
         }
       });
