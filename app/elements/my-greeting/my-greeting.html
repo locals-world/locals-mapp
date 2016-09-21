@@ -34,7 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <geo-location watchpos highAccuracy id="geolocation" longitude="{{longitude}}" latitude="{{latitude}}"></geo-location>
     <google-map api-key="AIzaSyC-ywBkfduvR3yeC6sf8ePFre1-cSuL8oY" map="{{map}}" zoom="{{zoom}}" latitude="{{latitude}}" longitude="{{longitude}}" id="googlemap">
       <template is="dom-repeat" items="{{ data }}">
-        <google-map-marker latitude="{{item.latitude}}" longitude="{{item.longitude}}"></google-map-marker>
+        <google-map-marker offerid="{{item.info}}" click-events on-google-map-marker-click="selectoffer" latitude="{{item.latitude}}" longitude="{{item.longitude}}"></google-map-marker>
       </template>
     </google-map>
   </template>
@@ -55,10 +55,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           data: {
             type: Array,
-            value: [{'latitude': 51.230101399999995, 'longitude': 4.386792},
-                    {'latitude': 51.231101399999995, 'longitude': 4.386792},
-                    {'latitude': 51.232101399999995, 'longitude': 4.386792},
-                    {'latitude': 51.233101399999995, 'longitude': 4.386792}]
+            value: [{'latitude': 51.230101399999995, 'longitude': 4.386792, 'info': 'testing1'},
+                    {'latitude': 51.231101399999995, 'longitude': 4.386792, 'info': 'testing2'},
+                    {'latitude': 51.232101399999995, 'longitude': 4.386792, 'info': 'testing3'},
+                    {'latitude': 51.233101399999995, 'longitude': 4.386792, 'info': 'testing4'}]
           },
 
           zoom: {
@@ -85,6 +85,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             //     }
             //   }
             });
+        },
+
+        selectoffer: function(e){
+          //console.log('arker',e.target.offerid);
+          page('/users/'+e.target.offerid);
         }
       });
     })();
