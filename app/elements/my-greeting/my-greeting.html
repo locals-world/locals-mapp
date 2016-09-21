@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/google-map/google-map.html">
 <link rel="import" href="../../bower_components/geo-location/geo-location.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 
 <dom-module id="my-greeting">
   <template>
@@ -29,10 +30,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       width: 100vw;
       height: 90vh;
     }
-    </style>
 
+    paper-fab {
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+      z-index: 99;
+    }
+    </style>
+    <paper-fab icon="add" on-tap="goAddOffer"></paper-fab>
     <geo-location watchpos highAccuracy id="geolocation" longitude="{{longitude}}" latitude="{{latitude}}"></geo-location>
-    <google-map api-key="AIzaSyC-ywBkfduvR3yeC6sf8ePFre1-cSuL8oY" map="{{map}}" zoom="{{zoom}}" latitude="{{latitude}}" longitude="{{longitude}}" id="googlemap">
+    <google-map api-key="AIzaSyC-ywBkfduvR3yeC6sf8ePFre1-cSuL8oY" map="{{map}}" zoom="{{zoom}}" latitude="{{latitude}}" longitude="{{longitude}}" id="googlemap" disable-default-ui>
       <template is="dom-repeat" items="{{ data }}">
         <google-map-marker offerid="{{item.info}}" click-events on-google-map-marker-click="selectoffer" latitude="{{item.latitude}}" longitude="{{item.longitude}}"></google-map-marker>
       </template>
@@ -90,6 +100,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         selectoffer: function(e){
           //console.log('arker',e.target.offerid);
           page('/users/'+e.target.offerid);
+        },
+
+        goAddOffer: function(){
+          page('/newoffer');
         }
       });
     })();
