@@ -26,11 +26,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <paper-material elevation="1">
       <h1>Create a new offer</h1>
-      <paper-input label="Hashtag" placeholder="Rideshare"></paper-input>
-      <paper-input label="Description" placeholder="Pick me up"></paper-input>
-      <paper-input label="Starts"></paper-input>
-      <paper-input label="Duration"></paper-input>
-      <paper-input label="Where" placeholder="Here"></paper-input>
+      <paper-input label="Hashtag" placeholder="Rideshare" value="Rideshare"></paper-input>
+      <paper-input label="Description" placeholder="Pick me up" value="Pick me up"></paper-input>
+      <paper-input label="Starts" value="datepicker"></paper-input>
+      <paper-input label="Duration" value="30"></paper-input>
+      <paper-input label="Where" placeholder="Here" value="geohash"></paper-input>
       <paper-button raised on-tap="newOffer">Publish offer</paper-button>
     </paper-material>
   </template>
@@ -55,20 +55,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      attached: function(){
+      attached: function() {
         //this.web3 = document.querySelector('web3-wallet');
       },
       newOffer: function() {
         console.log('new offer', this.web3);
-
-        // function newOffer(
-        //    address _claimer,
-        //    uint _amount,
-        //    string _descriptionipfs,
-        //    uint _validityStart,
-        //    uint _duration
-        //  )
-
         var self = this;
         app.helpers.getfile('../../contracts/localsInOut.json', function(err, contractjson) {
           console.log(err, contractjson);
