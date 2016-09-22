@@ -90,6 +90,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       host='{"host": "ipfs.infura.io", "port": "5001", "procotol": "https"}'
       hidefileinput></ipfs-upload>
 
+<localcoin-account web3="{{web3}}" account="{{account}}" localcoinbalance="{{localcoinbalance}}"></localcoin-account>
+
     <paper-drawer-panel id="paperDrawerPanel" force-narrow>
       <!-- Drawer Scroll Header Panel -->
       <div class="drawer" drawer fixed>
@@ -97,7 +99,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!-- Drawer Toolbar -->
         <paper-toolbar id="drawerToolbar">
           <span class="menu-name">#rideshare</span>
-          <locals-icon class="refresher" small icon="plus" iconcolor="grey5"></locals-icon>
         </paper-toolbar>
 
         <div class="trending">
@@ -115,7 +116,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             #devwork
           </p>
           <p>
-            #socialadvice
+            #household
           </p>
         </div>
         <!-- Drawer Content -->
@@ -168,7 +169,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <locals-icon class="refresher" small icon="refresh1" iconcolor="grey5"></locals-icon>
                 </template>
                 <template is="dom-if" if="{{balanceloaded}}"> -->
-                  <h1>0.00</h1>
+                  <h1>{{localcoinbalance}}</h1>
                   <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="darkgrey"></locals-icon>
                 <!-- </template> -->
               </div>
