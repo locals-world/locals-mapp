@@ -1,10 +1,10 @@
 var lightwallet = require('eth-lightwallet');
 var Web3 = require('web3');
 var fs = require('fs');
-var keystoreFile = "./wallet.json";
+var keystoreFile = "../scripts/wallet.json";
 
-var localcoincontract = require('../app/contracts/MyToken.json');
-var localcoincontractaddress = '0xe94a4e5615E5d1BAfbDBc8a221D9b0995f67A752';
+var localcoincontract = require('../../app/contracts/localsCointoken.json');
+var localcoincontractaddress = localcoincontract.address;
 
 var myArgs = require('optimist').argv;
 var HookedWeb3Provider = require("hooked-web3-provider");
@@ -29,6 +29,11 @@ function fixaddress(address) {
 }
 
 function strStartsWith(str, prefix) {
+	if (!str){
+		console.log('string should not be empty');
+	}else{
+		console.log(str);
+	}
   return str.indexOf(prefix) === 0;
 }
 
