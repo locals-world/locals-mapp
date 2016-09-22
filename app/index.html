@@ -114,7 +114,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             #devwork
           </p>
           <p>
-            #socialadvice
+            #household
           </p>
         </div>
         <!-- Drawer Content -->
@@ -174,8 +174,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
 
           <div class="flex"></div>
-          <div class="selectoricon"><img src="images/prototypequick/ups-selected.png"></div>
-          <div class="selectoricon"><img src="images/prototypequick/downs-notselected.png"></div>
+          <template is="dom-if" if="{{!up}}">
+            <locals-icon class="localcoinamount" icon="currentisup" on-tap="toggledownup"></locals-icon>
+          </template>
+          <template is="dom-if" if="{{up}}">
+            <locals-icon class="localcoinamount" icon="currentisdown" on-tap="toggledownup"></locals-icon>
+          </template>
+          <div class="invisible"></div>
+          <!-- <div class="selectoricon"><img src="images/prototypequick/ups-selected.png"></div>
+          <div class="selectoricon"><img src="images/prototypequick/downs-notselected.png"></div> -->
         </div>
 
         <!-- Main Content -->
