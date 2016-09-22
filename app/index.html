@@ -94,7 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <paper-drawer-panel id="paperDrawerPanel" force-narrow>
       <!-- Drawer Scroll Header Panel -->
-      <paper-scroll-header-panel drawer fixed>
+      <div class="drawer" drawer fixed>
 
         <!-- Drawer Toolbar -->
         <paper-toolbar id="drawerToolbar">
@@ -150,7 +150,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <p>{{account}}</p>
           <p>{{balance}}</p>
         </paper-menu>
-      </paper-scroll-header-panel>
+      </div>
 
       <!-- Main Area -->
       <paper-scroll-header-panel main id="headerPanelMain" condenses keep-condensed-header>
@@ -211,7 +211,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </section>
 
             <section data-route="newoffer">
-                <paper-icon-button icon="close" on-tap="home"></paper-icon-button>
+                <locals-button icon="decline" on-tap="home" verysmall bgrgba="0,0,0,0"></locals-button>
                 <new-offer account="{{account}}"></new-offer>
             </section>
 
