@@ -55,9 +55,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.contractjson = JSON.parse(e.target.import.body.innerText);
 
           var MyContract = self.web3wallet.web3.eth.contract(self.contractjson.abi);
-          var myContractInstance = MyContract.at(self.contractaddr);
+          var myContractInstance = MyContract.at(self.contractjson.address);
 
-          console.log('localcoin address',self.contractaddr);
+          console.log('localcoin address',self.contractjson.address);
 
 
         var account = this.fixaddress(this.account);
