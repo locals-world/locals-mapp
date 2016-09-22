@@ -13,7 +13,7 @@
     "google-map": "^1.1.11",
     "locals-whisperer": "https://github.com/locals-world/locals-whisperer.git",
     "web3-wallet": "^0.0.14",
-    "ipfs-upload": "https://github.com/locals-world/ipfs-upload.git#^0.0.14",
+    "ipfs-upload": "https://github.com/sponnet/ipfs-upload.git#^0.0.14",
     "map-box": "mapbox-map#^0.1.6",
     "leaflet-map": "^1.2.0"
   },
