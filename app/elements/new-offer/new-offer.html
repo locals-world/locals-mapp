@@ -81,6 +81,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         status: {
           type: Array,
           value: []
+        },
+        geohash: {
+          type: String,
+          value: ''
         }
       },
 
@@ -113,13 +117,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           geohash: this.geohash
         };
         var self = this;
-        
+
         this.ipfsupload.add(JSON.stringify(this.offer), function(err, res) {
           if (!err && res[0] && res[0].Hash) {
             console.log(res[0].Hash);
 
             self.push('status', {msg: 'saved IPFS data ' + res[0].Hash});
-                  
+
             app.helpers.getfile('../../contracts/localsInOut.json', function(err, contractjson) {
               console.log(err, contractjson);
               self.web3wallet.web3.eth.getGasPrice(function(err, result) {
@@ -127,14 +131,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 var MyContract = self.web3wallet.web3.eth.contract(contractjson.abi);
                 var myContractInstance = MyContract.at(contractjson.address);
                 var account = app.helpers.fixaddress(self.web3wallet.account);
-
- // function newOffer(
- //    //address _claimer,
- //    uint _amount,
- //    string _descriptionipfs,
- //    uint _validityStart,
- //    uint _duration
- //  )
 
                 result = myContractInstance.newOffer.sendTransaction(self.value, res[0].Hash, self.offer.start,self.offer.duration, {
                     from: account,
