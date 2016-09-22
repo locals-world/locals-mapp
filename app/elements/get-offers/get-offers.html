@@ -74,10 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     loadIPFSdata: function(ipfshash, fn) {
           if (!this.ipfsclient) {
-            this.ipfsapihost = new Polymer.IronMetaQuery({
-              key: 'ipfs_read'
-            }).value;
-            //this.ipfsapihost = '/ip4/109.123.70.141/tcp/8080';
+            this.ipfsapihost = 'https://ipfs.infura.io';
             this.ipfsclient = window.ipfsAPI(this.ipfsapihost);
           }
           var self = this;
