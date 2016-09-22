@@ -15,7 +15,8 @@
     "web3-wallet": "^0.0.14",
     "ipfs-upload": "https://github.com/sponnet/ipfs-upload.git",
     "map-box": "mapbox-map#^0.1.6",
-    "leaflet-map": "^1.2.0"
+    "leaflet-map": "^1.2.0",
+    "locals-button": "https://github.com/locals-world/locals-button.git#^0.0.20"
   },
   "devDependencies": {},
   "ignore": [],

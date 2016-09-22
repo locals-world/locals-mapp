@@ -13,6 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/geo-location/geo-location.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/map-box/map-box.html">
+<link rel="import" href="../../bower_components/locals-button/locals-button.html">
 
 <dom-module id="my-greeting">
   <template>
@@ -40,9 +41,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       right: 40px;
       z-index: 99;
     }
+
+    locals-button {
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+      z-index: 99;      
+    }
     </style>
     <get-offers data="{{data}}"></get-offers>
-    <paper-fab icon="add" on-tap="goAddOffer"></paper-fab>
+<!--     <paper-fab icon="add" on-tap="goAddOffer"></paper-fab>
+ -->    <locals-button icon="addlocalcoin" small bg="blue" txtcolor="white"></locals-button>
     <geo-location watch-pos latitude="{{latitude}}" longitude="{{longitude}}" id="geolocation"></geo-location>
     <mapbox-map
       map="{{map}}"
