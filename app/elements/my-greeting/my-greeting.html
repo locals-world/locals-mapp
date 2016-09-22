@@ -10,9 +10,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
-<link rel="import" href="../../bower_components/google-map/google-map.html">
 <link rel="import" href="../../bower_components/geo-location/geo-location.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/map-box/map-box.html">
 
 <dom-module id="my-greeting">
   <template>
@@ -27,7 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       @apply(--paper-font-body1);
     }
 
-    #googlemap {
+    mapbox-map {
       width: 100vw;
       height: 100%;
     }
@@ -42,18 +42,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     </style>
     <paper-fab icon="add" on-tap="goAddOffer"></paper-fab>
-    <paper-fab-menu icon="menu" closeIcon="close" duration="0.3">
-  <paper-fab-menu-item icon="info-outline" color="blue;" tooltip="Information"></paper-fab-menu-item>
-  <paper-fab-menu-item icon="alarm" color="purple;" tooltip="Alarm"></paper-fab-menu-item>
-  <paper-fab-menu-item icon="star-outline" color="green;" tooltip="Favorites"></paper-fab-menu-item>
-  <paper-fab-menu-item icon="list" color="orange;" tooltip="List"></paper-fab-menu-item>
-</paper-fab-menu>
-    <geo-location watchpos highAccuracy id="geolocation" longitude="{{longitude}}" latitude="{{latitude}}"></geo-location>
-    <google-map api-key="AIzaSyC-ywBkfduvR3yeC6sf8ePFre1-cSuL8oY" map="{{map}}" zoom="{{zoom}}" latitude="{{latitude}}" longitude="{{longitude}}" id="googlemap" disable-default-ui>
+    <geo-location watch-pos latitude="{{latitude}}" longitude="{{longitude}}" id="geolocation"></geo-location>
+    <mapbox-map
+      map="{{map}}"
+      zoom="{{zoom}}"
+      id="mapb"
+      latitude="{{latitude}}" longitude="{{longitude}}"
+      on-locationfound="resize"
+      layer="mapbox.dark">
       <template is="dom-repeat" items="{{ data }}">
-        <google-map-marker offerid="{{item.info}}" click-events on-google-map-marker-click="selectoffer" latitude="{{item.latitude}}" longitude="{{item.longitude}}"></google-map-marker>
+        <mapbox-marker offerid="{{item.info}}" click-events on-google-map-marker-click="selectoffer" latitude="{{item.latitude}}" longitude="{{item.longitude}}"></mapbox-map-marker>
       </template>
-    </google-map>
+    </mapbox-map>
   </template>
 
   <script>
@@ -85,14 +85,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
 
         ready: function() {
-          var self = this;
+          this.$.mapb.addEventListener('mapbox-map-ready', function() {
+            console.log('mapbox ready');
+          }.bind(this));
 
           this.$.geolocation.addEventListener('geo-response', function(e) {
-            self.latitude = e.detail.latitude;
-            self.longitude = e.detail.longitude;
-            self.$.googlemap.resize();
-            console.log('got geo: ', self.latitude, ' - ', self.longitude);
-          });
+            this.latitude = e.detail.latitude;
+            this.longitude = e.detail.longitude;
+            this.$.mapb.map.invalidateSize();
+            this.$.mapb.zoom = this.zoom;
+            console.log('got geo: ', this.latitude, ' - ', this.longitude);
+          }.bind(this));
+        },
+
+        resize: function() {
+          this.$.mapb.map.invalidateSize();
         },
 
         selectoffer: function(e) {

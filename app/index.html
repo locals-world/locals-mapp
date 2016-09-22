@@ -15,8 +15,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
   <meta name="generator" content="Polymer Starter Kit">
   <title>Locals</title>
+=======
+  <meta name="generator" content="Locals-Mapp">
+  <title>Locals-Mapp</title>
+>>>>>>> 1a3f0082436e18bffca1056747eedbd863697521
 
   <!-- Place favicon.ico in the `app/` directory -->
 
@@ -37,7 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- Add to homescreen for Safari on iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Polymer Starter Kit">
+  <meta name="apple-mobile-web-app-title" content="Locals-Mapp">
   <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
 
   <!-- Tile icon for Win8 (144x144) -->
@@ -50,6 +55,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <!-- endbuild -->
+
+  <script src="bower_components/geohash/geohash.js"></script>
+
 
   <!-- Because this project uses vulcanize this should be your only html import
        in this file. All other imports should go in elements.html -->
@@ -74,6 +82,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       web3="{{web3}}"
       password="test"></web3-wallet>
 
+ <ipfs-upload
+      id="ipfsupload"
+      hash=""
+      on-ipfs-hash-received=""
+      on-upload-started=""
+      on-upload-error=""
+      host="/ip4/109.123.70.141/tcp/5001"
+      hidefileinput></ipfs-upload>
 
     <paper-drawer-panel id="paperDrawerPanel" force-narrow>
       <!-- Drawer Scroll Header Panel -->
@@ -138,7 +154,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="content">
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
             <section data-route="home">
-                <my-greeting></my-greeting>
+                <my-greeting id="mapview"></my-greeting>
             </section>
 
             <section data-route="users">
@@ -159,7 +175,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <section data-route="newoffer">
                 <paper-icon-button icon="close" on-tap="home"></paper-icon-button>
-                <new-offer account="{{account}}" web3="{{web3}}"></new-offer>
+                <new-offer account="{{account}}"></new-offer>
             </section>
 
             <section data-route="contact">
