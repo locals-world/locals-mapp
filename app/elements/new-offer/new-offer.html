@@ -46,16 +46,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String
         },
         description: {
-          type: String          
+          type: String
         },
         start: {
-          type: String          
+          type: String
         },
         duration: {
-          type: String          
+          type: String
         },
         geohash: {
-          type: String          
+          type: String
         }
       },
 
@@ -66,7 +66,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       newOffer: function() {
         console.log('new offer', this.web3);
-debugger;
         this.geohash = window.encodeGeoHash(this.mapview.latitude,this.mapview.longtitude);
 
         var offer = {
@@ -80,40 +79,38 @@ debugger;
         this.ipfsupload.add(JSON.stringify(offer), function(err, res) {
           if (!err && res[0] && res[0].Hash) {
             console.log(res[0].Hash);
-
-            return;
-
-            var self = this;
-            app.helpers.getfile('../../contracts/localsInOut.json', function(err, contractjson) {
-              console.log(err, contractjson);
-              self.web3.eth.getGasPrice(function(err, result) {
-                var gasPrice = result.toNumber(10);
-                var MyContract = self.web3.eth.contract(contractjson.abi);
-                var myContractInstance = MyContract.at(contractjson.address);
-                var account = app.helpers.fixaddress(self.web3.account);
-                result = myContractInstance.newOffer.sendTransaction('0x0', 10, 'ipfshash', 1, 2, {
-                    from: account,
-                    gasPrice: gasPrice,
-                    gasLimit: 600000,
-                    gas: 600000,
-                    data: contractjson.bytecode
-                  },
-                  function(err, result) {
-                    if (err !== null) {
-                      console.log(err);
-                      console.log('ERROR: Transaction didnt go through. See console.');
-                    } else {
-                      console.log('Transaction Successful!');
-                      //self.progress = 'addedtoindex';
-                      console.log('Tx hash=', result);
-                      // set vote status to TxHash received
-                      //self.votestatus = 2;
-                      //self.transactionHash = result;
-                    }
-                    //fn(err, result);
-                  });
-              });
-            });
+            // var self = this;
+            // return;
+            // app.helpers.getfile('../../contracts/localsInOut.json', function(err, contractjson) {
+            //   console.log(err, contractjson);
+            //   self.web3.eth.getGasPrice(function(err, result) {
+            //     var gasPrice = result.toNumber(10);
+            //     var MyContract = self.web3.eth.contract(contractjson.abi);
+            //     var myContractInstance = MyContract.at(contractjson.address);
+            //     var account = app.helpers.fixaddress(self.web3.account);
+            //     result = myContractInstance.newOffer.sendTransaction('0x0', 10, 'ipfshash', 1, 2, {
+            //         from: account,
+            //         gasPrice: gasPrice,
+            //         gasLimit: 600000,
+            //         gas: 600000,
+            //         data: contractjson.bytecode
+            //       },
+            //       function(err, result) {
+            //         if (err !== null) {
+            //           console.log(err);
+            //           console.log('ERROR: Transaction didnt go through. See console.');
+            //         } else {
+            //           console.log('Transaction Successful!');
+            //           //self.progress = 'addedtoindex';
+            //           console.log('Tx hash=', result);
+            //           // set vote status to TxHash received
+            //           //self.votestatus = 2;
+            //           //self.transactionHash = result;
+            //         }
+            //         //fn(err, result);
+            //       });
+            //   });
+            // });
           }
         });
       }
