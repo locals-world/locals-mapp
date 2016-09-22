@@ -115,10 +115,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           description: this.description,
           start: this.start,
           duration: this.duration,
-          geohash: this.geohash
+          geohash: this.geohash,
+          value: this.value
         };
+        console.log(this.offer);
         var self = this;
-
         this.ipfsupload.add(JSON.stringify(this.offer), function(err, res) {
           if (!err && res[0] && res[0].Hash) {
             console.log(res[0].Hash);

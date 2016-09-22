@@ -96,24 +96,54 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Drawer Toolbar -->
         <paper-toolbar id="drawerToolbar">
-          <span class="menu-name">Menu</span>
+          <span class="menu-name">#rideshare</span>
+          <locals-icon class="refresher" small icon="plus" iconcolor="grey5"></locals-icon>
         </paper-toolbar>
 
+        <div class="trending">
+          <h2>Trending</h2>
+          <p>
+            <b>#rideshare</b>
+          </p>
+          <p>
+            #delivery
+          </p>
+          <p>
+            #foodshare
+          </p>
+          <p>
+            #devwork
+          </p>
+          <p>
+            #socialadvice
+          </p>
+        </div>
         <!-- Drawer Content -->
         <paper-menu attr-for-selected="data-route" selected="[[route]]">
+
           <a data-route="home" href="{{baseUrl}}">
             <iron-icon icon="home"></iron-icon>
-            <span>Home</span>
+            <span>Map View</span>
           </a>
 
           <a data-route="users" href="{{baseUrl}}users">
             <iron-icon icon="info"></iron-icon>
-            <span>Users</span>
+            <span>Profile</span>
           </a>
 
           <a data-route="contact" href="{{baseUrl}}contact">
             <iron-icon icon="mail"></iron-icon>
-            <span>Contact</span>
+            <span>Settings</span>
+          </a>
+
+          <a data-route="contact" href="{{baseUrl}}contact">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Settings</span>
+          </a>
+
+          <a data-route="contact" href="{{baseUrl}}contact">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Settings</span>
           </a>
 
           <p>{{account}}</p>
