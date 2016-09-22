@@ -51,6 +51,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <!-- endbuild -->
 
+  <script src="bower_components/geohash/geohash.js"></script>
+
+
   <!-- Because this project uses vulcanize this should be your only html import
        in this file. All other imports should go in elements.html -->
   <link rel="import" href="elements/elements.html">
@@ -74,6 +77,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       web3="{{web3}}"
       password="test"></web3-wallet>
 
+ <ipfs-upload
+      id="ipfsupload"
+      hash=""
+      on-ipfs-hash-received=""
+      on-upload-started=""
+      on-upload-error=""
+      host="/ip4/109.123.70.141/tcp/5001"
+      hidefileinput></ipfs-upload>
 
     <paper-drawer-panel id="paperDrawerPanel">
       <!-- Drawer Scroll Header Panel -->
@@ -125,7 +136,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="content">
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
             <section data-route="home">
-                <my-greeting></my-greeting>
+                <my-greeting id="mapview"></my-greeting>
             </section>
 
             <section data-route="users">
@@ -146,7 +157,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <section data-route="newoffer">
                 <paper-icon-button icon="close" on-tap="home"></paper-icon-button>
-                <new-offer account="{{account}}" web3="{{web3}}"></new-offer>
+                <new-offer account="{{account}}"></new-offer>
             </section>
 
             <section data-route="contact">

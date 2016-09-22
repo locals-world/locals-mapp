@@ -12,7 +12,8 @@
     "geo-location": "^1.0.6",
     "google-map": "^1.1.11",
     "locals-whisperer": "https://github.com/locals-world/locals-whisperer.git",
-    "web3-wallet": "^0.0.14"
+    "web3-wallet": "^0.0.14",
+    "ipfs-upload": "https://github.com/locals-world/ipfs-upload.git#^0.0.14"
   },
   "devDependencies": {},
   "ignore": [],

@@ -26,11 +26,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <paper-material elevation="1">
       <h1>Create a new offer</h1>
-      <paper-input label="Hashtag" placeholder="Rideshare" value="Rideshare"></paper-input>
-      <paper-input label="Description" placeholder="Pick me up" value="Pick me up"></paper-input>
-      <paper-input label="Starts" value="datepicker"></paper-input>
-      <paper-input label="Duration" value="30"></paper-input>
-      <paper-input label="Where" placeholder="Here" value="geohash"></paper-input>
+      <paper-input bind-value="{{hashtag}}" label="Hashtag" placeholder="Rideshare" value="Rideshare"></paper-input>
+      <paper-input bind-value="{{description}}" label="Description" placeholder="Pick me up" value="Pick me up"></paper-input>
+      <paper-input bind-value="{{start}}" label="Starts" value="datepicker"></paper-input>
+      <paper-input bind-value="{{duration}}" label="Duration" value="30"></paper-input>
+      <paper-input bind-value="{{geohash}}" label="Where" placeholder="Here" value="geohash"></paper-input>
       <paper-button raised on-tap="newOffer">Publish offer</paper-button>
     </paper-material>
   </template>
@@ -42,56 +42,80 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'new-offer',
 
       properties: {
-        foo: {
-          type: String,
-          value: 'new-offer',
-          notify: true
-        },
-        web3: {
-          type: Object,
-        },
-        account: {
+        hashtag: {
           type: String
+        },
+        description: {
+          type: String          
+        },
+        start: {
+          type: String          
+        },
+        duration: {
+          type: String          
+        },
+        geohash: {
+          type: String          
         }
       },
 
       attached: function() {
-        //this.web3 = document.querySelector('web3-wallet');
+        this.web3 = document.getElementById('web3wallet');
+        this.ipfsupload = document.getElementById('ipfsupload');
+        this.mapview = document.getElementById('mapview');
       },
       newOffer: function() {
         console.log('new offer', this.web3);
-        var self = this;
-        app.helpers.getfile('../../contracts/localsInOut.json', function(err, contractjson) {
-          console.log(err, contractjson);
-          self.web3.eth.getGasPrice(function(err, result) {
-            var gasPrice = result.toNumber(10);
-            var MyContract = self.web3.eth.contract(contractjson.abi);
-            var myContractInstance = MyContract.at(contractjson.address);
-            var account = app.helpers.fixaddress(self.account);
-            result = myContractInstance.newOffer.sendTransaction('0x0',10,'ipfshash',1,2, {
-                from: account,
-                gasPrice: gasPrice,
-                gasLimit: 600000,
-                gas: 600000,
-                data: contractjson.bytecode
-              },
-              function(err, result) {
-                if (err !== null) {
-                  console.log(err);
-                  console.log('ERROR: Transaction didnt go through. See console.');
-                } else {
-                  console.log('Transaction Successful!');
-                  //self.progress = 'addedtoindex';
-                  console.log('Tx hash=', result);
-                  // set vote status to TxHash received
-                  //self.votestatus = 2;
-                  //self.transactionHash = result;
-                }
-                //fn(err, result);
-              });
-          });
-        });
+debugger;
+        this.geohash = window.encodeGeoHash(this.mapview.latitude,this.mapview.longtitude);
 
+        var offer = {
+          hashtag: this.hashtag,
+          description: this.description,
+          start: this.start,
+          duration: this.duration,
+          geohash: this.geohash
+        };
+
+        this.ipfsupload.add(JSON.stringify(offer), function(err, res) {
+          if (!err && res[0] && res[0].Hash) {
+            console.log(res[0].Hash);
+
+            return;
+
+            var self = this;
+            app.helpers.getfile('../../contracts/localsInOut.json', function(err, contractjson) {
+              console.log(err, contractjson);
+              self.web3.eth.getGasPrice(function(err, result) {
+                var gasPrice = result.toNumber(10);
+                var MyContract = self.web3.eth.contract(contractjson.abi);
+                var myContractInstance = MyContract.at(contractjson.address);
+                var account = app.helpers.fixaddress(self.web3.account);
+                result = myContractInstance.newOffer.sendTransaction('0x0', 10, 'ipfshash', 1, 2, {
+                    from: account,
+                    gasPrice: gasPrice,
+                    gasLimit: 600000,
+                    gas: 600000,
+                    data: contractjson.bytecode
+                  },
+                  function(err, result) {
+                    if (err !== null) {
+                      console.log(err);
+                      console.log('ERROR: Transaction didnt go through. See console.');
+                    } else {
+                      console.log('Transaction Successful!');
+                      //self.progress = 'addedtoindex';
+                      console.log('Tx hash=', result);
+                      // set vote status to TxHash received
+                      //self.votestatus = 2;
+                      //self.transactionHash = result;
+                    }
+                    //fn(err, result);
+                  });
+              });
+            });
+          }
+        });
       }
     });
   })();
