@@ -20,6 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
     :host {
       display: block;
+      height: 100%;
     }
 
     span {
@@ -28,7 +29,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     mapbox-map {
       width: 100vw;
-      height: 90vh;
+      height: 100%;
     }
 
     paper-fab {
@@ -48,7 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       id="mapb"
       latitude="{{latitude}}" longitude="{{longitude}}"
       on-locationfound="resize"
-      layer="mapbox.dark">
+      layer="mapbox.light">
       <template is="dom-repeat" items="{{ data }}">
         <mapbox-marker offerid="{{item.info}}" click-events on-google-map-marker-click="selectoffer" latitude="{{item.latitude}}" longitude="{{item.longitude}}"></mapbox-map-marker>
       </template>

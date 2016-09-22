@@ -56,6 +56,130 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @apply(--layout-vertical);
   }
 
+
+  h1 {
+    @apply(--locals-font-h1);
+
+/*          @apply(--opensans-light);
+      @apply(--locals-font-nowrap);
+      -webkit-margin-before:7px;
+      -webkit-margin-after:7px;
+      -webkit-margin-start:0em;
+      -webkit-margin-end:0em;
+      margin: 7px 0px 7px 0px;
+      padding: 0px;
+      font-size: 32px;
+      line-height: 46px;*/
+  }
+
+  h3 {
+    @apply(--locals-font-h3);
+  }
+
+  p {
+    @apply(--locals-font-body1);
+    @apply(--opensans-reg);
+    color: var(--locals-grey7);
+  }
+
+#headerPanelMain {
+  height: 100%;
+}
+
+.header {
+  height: 18vh;
+  @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+    box-sizing: border-box;
+    padding: 2vh 20px 2vh 20px;
+}
+
+.flex {
+  @apply(--layout-flex);
+}
+
+.selectoricon {
+  height: 20px;
+  width: 20px;
+  margin: 2px;
+}
+
+.selectoricon img {
+  height: 100%;
+  width: 100%;
+}
+
+my-greeting {
+  height: 82vh;
+}
+
+  .avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: transparent;
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+
+  .localcoinamount {
+    margin: 0px 0px 7px 6px;
+  }
+
+
+
+  .balanceinfo {
+    margin: var(--balance-margins);
+    width: var(--totalinfo-width);
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+  }
+
+
+
+  .balance {
+    color: var(--locals-darkgrey);
+    @apply(--layout-horizontal);
+    @apply(--layout-end);
+    @apply(--layout-wrap);
+    width: auto;
+  }
+
+  .balance:hover {
+    cursor: pointer;
+  }
+  .balance h1 {
+    margin: 0px 0px 0px 15px;
+    color: var(--locals-blue);
+      font-size: 32px;
+      line-height: 46px;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* this was here allready*/
+
   .space {
     @apply(--layout-flex);
   }
@@ -140,8 +264,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   /* Height of the scroll area */
   .content {
-    height: 900px;
-  }
+/*    height: 900px;
+*/  }
 
   section[data-route="home"] paper-material {
     @apply(--paper-font-body2);

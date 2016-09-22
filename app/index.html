@@ -15,6 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <meta name="generator" content="Locals-Mapp">
   <title>Locals-Mapp</title>
 
@@ -86,7 +87,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       host="/ip4/109.123.70.141/tcp/5001"
       hidefileinput></ipfs-upload>
 
-    <paper-drawer-panel id="paperDrawerPanel">
+    <paper-drawer-panel id="paperDrawerPanel" force-narrow>
       <!-- Drawer Scroll Header Panel -->
       <paper-scroll-header-panel drawer fixed>
 
@@ -119,18 +120,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <!-- Main Area -->
       <paper-scroll-header-panel main id="headerPanelMain" condenses keep-condensed-header>
-        <!-- Main Toolbar -->
-        <paper-toolbar id="mainToolbar" class="fixed">
+        <!-- <div id="mainToolbar" class="fixed"> -->
+        <div class="header">
           <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+             <div class="avatar" paper-drawer-toggle>
+               <img src="images/avatardefaults/locals-avatardefault_1.png">
+             </div>
 
-          <span class="space"></span>
-          <!-- Toolbar icons -->
-          <paper-icon-button icon="refresh"></paper-icon-button>
-          <paper-icon-button icon="search"></paper-icon-button>
 
-          <!-- Application name -->
 
-        </paper-toolbar>
+             <div class="balanceinfo">
+              <div class="balance">
+                <!-- <template is="dom-if" if="{{!balanceloaded}}">
+                  <locals-icon class="refresher" small icon="refresh1" iconcolor="grey5"></locals-icon>
+                </template>
+                <template is="dom-if" if="{{balanceloaded}}"> -->
+                  <h1>0.00</h1>
+                  <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="blue"></locals-icon>
+                <!-- </template> -->
+              </div>
+            </div>
+
+          <div class="flex"></div>
+          <div class="selectoricon"><img src="images/prototypequick/ups-selected.png"></div>
+          <div class="selectoricon"><img src="images/prototypequick/downs-notselected.png"></div>
+        </div>
 
         <!-- Main Content -->
         <div class="content">
