@@ -79,10 +79,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'view-offer',
 
       properties: {
-        offerid: {
-          type: String,
-          value: '',
-          observer: '_offerid'
+        offer: {
+          type: Object,
+          observer: '_offer'
         }
       },
 
@@ -106,8 +105,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }, 3000);
       },
 
-      _offerid: function() {
-        console.log('got offer id in detail ', this.offerid);
+      _offer: function() {
+        console.log('got offer id in detail ', this.offer);
       },
 
       _is: function(a, b) {

@@ -158,6 +158,10 @@ gulp.task('copy', function() {
     dot: true
   }).pipe(gulp.dest(dist()));
 
+ var sol = gulp.src([
+    'app/contracts/**/*.json'
+  ]).pipe(gulp.dest('dist/contracts'));
+
   // Copy over only the bower_components we need
   // These are things which cannot be vulcanized
   var bower = gulp.src([
