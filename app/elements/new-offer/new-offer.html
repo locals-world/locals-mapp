@@ -90,6 +90,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       attached: function() {
         this.web3wallet = document.getElementById('web3wallet');
+        this.web3 = this.web3wallet.web3;
         this.ipfsupload = document.getElementById('ipfsupload');
         this.mapview = document.getElementById('mapview');
         this.offerview = 'first';
@@ -105,7 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.offerview = 'second';
         // Push status msgs to this array
         this.push('status', {msg: 'doing the work'});
-        console.log('new offer', this.web3);
+        console.log('new offer', this.web3wallet.web3);
         this.geohash = window.encodeGeoHash(this.mapview.latitude,this.mapview.longitude);
         console.log('location',this.mapview.latitude,this.mapview.longitude,'geohash',this,geohash);
 
