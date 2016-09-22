@@ -12,7 +12,9 @@
     "geo-location": "^1.0.6",
     "google-map": "^1.1.11",
     "locals-whisperer": "https://github.com/locals-world/locals-whisperer.git",
-    "web3-wallet": "^0.0.14"
+    "web3-wallet": "^0.0.14",
+    "locals-icon": "https://github.com/locals-world/locals-icon.git",
+    "locals-style": "https://github.com/locals-world/locals-style.git"
   },
   "devDependencies": {},
   "ignore": [],
