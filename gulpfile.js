@@ -24,6 +24,8 @@ var historyApiFallback = require('connect-history-api-fallback');
 var packageJson = require('./package.json');
 var crypto = require('crypto');
 var ensureFiles = require('./tasks/ensure-files.js');
+var bb = require('bitballoon');
+var env = require('gulp-env');
 
 // var ghPages = require('gulp-gh-pages');
 
@@ -130,12 +132,12 @@ gulp.task('lint', ['ensureFiles'], function() {
     }))
 
   // JSCS has not yet a extract option
-  .pipe($.if('*.html', $.htmlExtract({strip: true})))
-  .pipe($.jshint())
-  .pipe($.jscs())
-  .pipe($.jscsStylish.combineWithHintResults())
-  .pipe($.jshint.reporter('jshint-stylish'))
-  .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
+  // .pipe($.if('*.html', $.htmlExtract({strip: true})))
+  // .pipe($.jshint())
+  // .pipe($.jscs())
+  // .pipe($.jscsStylish.combineWithHintResults())
+  // .pipe($.jshint.reporter('jshint-stylish'))
+  // .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
 });
 
 // Optimize images
@@ -319,6 +321,32 @@ gulp.task('deploy-gh-pages', function() {
       silent: true,
       branch: 'gh-pages'
     }), $.ghPages()));
+});
+
+// deploy to bitballoon
+gulp.task('deploy', null, function() {
+
+  env({
+    file: 'env.json',
+  });
+
+  if (!process.env.BB_ACCESSTOKEN) {
+    console.log('to deploy create a env.json file (see env.json.sample)');
+    process.exit();
+  }
+
+  console.log('AT=', process.env.BB_ACCESSTOKEN);
+
+  bb.deploy({
+    access_token: process.env.BB_ACCESSTOKEN,
+    site_id: process.env.BB_URL,
+    dir: "dist"
+  }, function(err, deploy) {
+    console.log('deployed at:',process.env.BB_URL);
+    if (err) {
+      throw (err)
+    }
+  });
 });
 
 // Load tasks for web-component-tester

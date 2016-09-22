@@ -52,7 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <!-- endbuild -->
 
-  <script src="bower_components/geohash/geohash.js"></script>
+
 
 
   <!-- Because this project uses vulcanize this should be your only html import
@@ -74,7 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       account="{{account}}"
       balance="{{balance}}"
       keystore="{{keystore}}"
-      host="http://faucet.ma.cx:8545"
+      host="https://morden.infura.io/fNrdKYnEHWqldP4JnWZp"
       web3="{{web3}}"
       password="test"></web3-wallet>
 
@@ -84,7 +84,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       on-ipfs-hash-received=""
       on-upload-started=""
       on-upload-error=""
-      host="/ip4/109.123.70.141/tcp/5001"
+      host='{"host": "ipfs.infura.io", "port": "5001", "procotol": "https"}'
       hidefileinput></ipfs-upload>
 
     <paper-drawer-panel id="paperDrawerPanel" force-narrow>
@@ -212,7 +212,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>
   <script src="scripts/helpers.js"></script>
-
+  <script src="bower_components/geohash/geohash.js"></script>
   <!-- endbuild-->
 </body>
 

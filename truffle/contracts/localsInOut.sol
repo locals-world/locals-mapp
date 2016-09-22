@@ -4,7 +4,7 @@ import "./localsCointoken.sol";
 
 contract localsInOut is owned {
 
-  event OfferAdded(uint proposalID, address recipient, uint amount, string description);
+  event OfferAdded(uint offerID, uint amount,uint validityStart,uint duration, string descriptionipfs);
   event Confirmed(uint offerNumber,  bool supportsProposal, address confirmator);
   event OfferClaimed(uint offerNumber, address claimer, address creator, uint amount);
   Offer[] public offers;
@@ -13,8 +13,8 @@ contract localsInOut is owned {
   struct Offer {
     address creator;
     address claimer;
-    uint amount;
-    string descriptionipfs;
+    uint amount;            // amount of localcoin
+    string descriptionipfs; // 
     uint validityStart;
     uint validityEnd;
     uint status;
@@ -38,7 +38,7 @@ contract localsInOut is owned {
 
   /* Function to create a new proposal */
   function newOffer(
-    address _claimer,
+    //address _claimer,
     uint _amount,
     string _descriptionipfs,
     uint _validityStart,
@@ -50,20 +50,20 @@ contract localsInOut is owned {
       offerID = offers.length++;
       Offer o = offers[offerID];
       o.creator = msg.sender;
-      o.claimer = _claimer;
+      //o.claimer = _claimer;
       o.amount = _amount;
       o.descriptionipfs = _descriptionipfs;
       o.validityStart = _validityStart;
       o.validityEnd = now + _duration * 1 minutes;
       o.status = 0;
       o.numberOfConfirmations = 0;
-      OfferAdded(offerID, _claimer, _amount, _descriptionipfs);
+      OfferAdded(offerID, _amount,_validityStart,_duration, _descriptionipfs);
       numOffers = offerID+1;
   }
 
   function claim(uint offerNumber) {
     Offer o = offers[offerNumber];
-    if(msg.value===o.amount){
+    if(msg.value==o.amount){
       o.claimer = msg.sender;
       o.status = 2;
       OfferClaimed(offerNumber, o.claimer, o.creator, o.amount);
