@@ -1,4 +1,5 @@
-#Locals iteration 3
+
+#Here you'll find the source code for the Arcade City front end app.
 
 ## installing
 - npm install
