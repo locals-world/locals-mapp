@@ -10,7 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import" href="../../bower_components/map-box/map-box.html">
 
 <dom-module id="view-offer">
   <template>
@@ -26,14 +26,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 200px;
       }
     </style>
+
     <paper-material elevation="1">
       <template is="dom-if" if="{{_is(claimview,'first')}}">
         <div>
           <div>{{offerid}}</div>
           <h1>#rideshare</h1>
-          <google-map api-key="AIzaSyC-ywBkfduvR3yeC6sf8ePFre1-cSuL8oY" map="{{map}}" zoom="{{zoom}}" latitude="{{latitude}}" longitude="{{longitude}}" id="googlemap" disable-default-ui>
-              <google-map-marker offerid="{{item.info}}" click-events on-google-map-marker-click="selectoffer" latitude="{{latitude}}" longitude="{{longitude}}"></google-map-marker>
-          </google-map>
+          <mapbox-map zoom="17" latitude="{{latitude}}" longitude="{{longitude}}" id="googlemap" disable-default-ui>
+          </mapbox-map>
           <p>I need a ride tonight at 4pm from Gloriantlaan 39 to Kattendijkdok-Oostkaai.</p>
           <h2>&Delta; 10</h2>
           <p>
