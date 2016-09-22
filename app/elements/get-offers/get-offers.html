@@ -53,7 +53,7 @@
                 var latlon = window.decodeGeoHash(object.geohash);
                 var lat = latlon.latitude[1];
                 var lon = latlon.longitude[1];
-                console.log('latlon=' , lat,lon);  
+                console.log('latlon=' , lat,lon);
 
                 self.push('data',{latitude: lat,longitude: lon, info: i});
 
