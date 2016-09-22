@@ -38,7 +38,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     attached: function() {
       var web3 = document.querySelector('#web3wallet');
-
+      //var mapb = document.querySelector('#mapb');
+      //mapb.map.invalidateSize();
       web3.addEventListener('web3-ready', function() {
         console.log('web3 ready');
         this.web3 = web3.web3;
@@ -73,32 +74,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     loadIPFSdata: function(ipfshash, fn) {
-          if (!this.ipfsclient) {
-            this.ipfsapihost = 'https://ipfs.infura.io';
-            this.ipfsclient = window.ipfsAPI(this.ipfsapihost);
-          }
-          var self = this;
+      this.ipfsapihost = '/ip4/109.123.70.141/tcp/8080';
+      this.ipfsclient = window.ipfsAPI(this.ipfsapihost);
+      var self = this;
 
-          var buf = '';
+      var buf = '';
 
-          this.ipfsclient.cat(ipfshash, function(err, res) {
-            if (err) {
-              console.log('ipfs error', ipfshash, err);
-              return;
-            }
-            res
-              .on('error', function(err) {
-                throw (err);
-              })
-              .on('data', function(data) {
-                buf += data;
-              })
-              .on('end', function() {
-                var ipfsData = JSON.parse(buf);
-                fn(ipfsData);
-              });
-          });
+      this.ipfsclient.cat(ipfshash, function(err, res) {
+        if (err) {
+          console.log('ipfs error', ipfshash, err);
+          return;
         }
+        res
+          .on('error', function(err) {
+            throw (err);
+          })
+          .on('data', function(data) {
+            buf += data;
+          })
+          .on('end', function() {
+            var ipfsData = JSON.parse(buf);
+            fn(ipfsData);
+          });
+      });
+    }
 
 });
 })();
