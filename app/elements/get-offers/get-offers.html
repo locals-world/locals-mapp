@@ -33,6 +33,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       web3: {
         type: Object
+      },
+      data: {
+        type: Array,
+        notify: true,
+        value : []
       }
     },
 
@@ -65,6 +70,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           console.log(offers[3]);
           self.loadIPFSdata(offers[3], function(object) {
             console.log(object);
+
+//debugger;
+                var latlon = window.decodeGeoHash(object.geohash);
+                var lat = latlon.latitude[1];
+                var lon = latlon.longitude[1];
+                console.log('latlon=' , lat,lon);  
+
+                self.push('data',{latitude: lat,longitude: lon, info: i});
+
           });
           //self.ipfsupload.get(offers[3], function() {
 
@@ -95,6 +109,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               })
               .on('end', function() {
                 var ipfsData = JSON.parse(buf);
+
                 fn(ipfsData);
               });
           });
