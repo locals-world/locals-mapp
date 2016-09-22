@@ -51,7 +51,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       on-locationfound="resize"
       layer="mapbox.light">
       <template is="dom-repeat" items="{{ data }}">
-        <mapbox-marker offerid="{{item.info}}" click-events on-google-map-marker-click="selectoffer" latitude="{{item.latitude}}" longitude="{{item.longitude}}"></mapbox-map-marker>
+        <mapbox-marker offerid="{{item.info}}" click-events on-click="selectoffer" latitude="{{item.latitude}}" longitude="{{item.longitude}}"></mapbox-map-marker>
       </template>
     </mapbox-map>
   </template>
