@@ -1,23 +1,5 @@
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-
 <dom-module id="get-offers">
-  <template>
-  <style>
-  :host {
-    display: block;
-  }
-  </style>
-</template>
 <script>
 (function() {
   'use strict';
@@ -33,12 +15,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       web3: {
         type: Object
+      },
+      data: {
+        type: Array,
+        notify: true,
+        value : []
       }
     },
 
     attached: function() {
       var web3 = document.querySelector('#web3wallet');
-
       web3.addEventListener('web3-ready', function() {
         console.log('web3 ready');
         this.web3 = web3.web3;
@@ -54,33 +40,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.helpers.getfile('../../contracts/localsInOut.json', function(err, contractjson) {
         var MyContract = self.web3.eth.contract(contractjson.abi);
         var myContractInstance = MyContract.at(contractjson.address);
-        //var totalprop = 1;
         var totaloffers = myContractInstance.numOffers().toNumber();
         console.log('we have ', totaloffers, ' offers');
         self.data = [];
         for (var i = totaloffers - 1; i >= 0; i--) {
           var _description = null;
-          //Things[i];
           var offers = myContractInstance.offers(i);
           console.log(offers[3]);
           self.loadIPFSdata(offers[3], function(object) {
             console.log(object);
-          });
-          //self.ipfsupload.get(offers[3], function() {
 
-        };
+                var latlon = window.decodeGeoHash(object.geohash);
+                var lat = latlon.latitude[1];
+                var lon = latlon.longitude[1];
+                console.log('latlon=' , lat,lon);  
+
+                self.push('data',{latitude: lat,longitude: lon, info: i});
+
+          });
+        }
       });
     },
 
     loadIPFSdata: function(ipfshash, fn) {
           if (!this.ipfsclient) {
-            //this.ipfsapihost = 'https://ipfs.infura.io';
             this.ipfsclient = window.ipfsAPI({"host": "ipfs.infura.io", "port": "5001", "procotol": "https"});
           }
           var self = this;
-
           var buf = '';
-
           this.ipfsclient.cat(ipfshash, function(err, res) {
             if (err) {
               console.log('ipfs error', ipfshash, err);
@@ -95,11 +82,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               })
               .on('end', function() {
                 var ipfsData = JSON.parse(buf);
+
                 fn(ipfsData);
               });
           });
         }
-
 });
 })();
 </script>

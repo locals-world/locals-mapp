@@ -15,7 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/map-box/map-box.html">
 <link rel="import" href="../../bower_components/locals-button/locals-button.html">
 
-<dom-module id="my-greeting">
+<dom-module id="map-view">
   <template>
 
     <style>
@@ -57,6 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       map="{{map}}"
       zoom="{{zoom}}"
       id="mapb"
+      access-token="pk.eyJ1Ijoia2luZ2ZsdXJrZWwiLCJhIjoiT3VwdHJzNCJ9.BxS8Ogtc7_W8qg3MpS1iNw"
       latitude="{{latitude}}" longitude="{{longitude}}"
       on-locationfound="resize"
       layer="mapbox.light">
@@ -71,7 +72,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       'use strict';
 
       Polymer({
-        is: 'my-greeting',
+        is: 'map-view',
 
         properties: {
           greeting: {

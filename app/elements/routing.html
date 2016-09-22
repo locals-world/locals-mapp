@@ -19,23 +19,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // Removes end / from app.baseUrl which page.base requires for production
     if (window.location.port === '') {  // if production
       page.base(app.baseUrl.replace(/\/$/, ''));
-    };
+    }
 
     // Middleware
     function scrollToTop(ctx, next) {
       app.scrollPageToTop();
       next();
-    };
+    }
 
     function closeDrawer(ctx, next) {
       app.closeDrawer();
       next();
-    };
+    }
 
     function centerMap(ctx, next) {
       var map = document.querySelector('mapbox-map');
       map.map.invalidateSize();
-    };
+    }
 
     // Routes
     page('*', scrollToTop, closeDrawer, function(ctx, next) {
