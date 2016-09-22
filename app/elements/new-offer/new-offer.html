@@ -81,11 +81,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         status: {
           type: Array,
           value: []
+        },
+        geohash: {
+          type: String,
+          value: ''
         }
       },
 
       attached: function() {
         this.web3wallet = document.getElementById('web3wallet');
+        this.web3 = this.web3wallet.web3;
         this.ipfsupload = document.getElementById('ipfsupload');
         this.mapview = document.getElementById('mapview');
         this.offerview = 'first';
@@ -101,7 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.offerview = 'second';
         // Push status msgs to this array
         this.push('status', {msg: 'doing the work'});
-        console.log('new offer', this.web3);
+        console.log('new offer', this.web3wallet.web3);
         this.geohash = window.encodeGeoHash(this.mapview.latitude,this.mapview.longitude);
         console.log('location',this.mapview.latitude,this.mapview.longitude,'geohash',this,geohash);
 
@@ -113,13 +118,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           geohash: this.geohash
         };
         var self = this;
-        
+
         this.ipfsupload.add(JSON.stringify(this.offer), function(err, res) {
           if (!err && res[0] && res[0].Hash) {
             console.log(res[0].Hash);
 
             self.push('status', {msg: 'saved IPFS data ' + res[0].Hash});
-                  
+
             app.helpers.getfile('../../contracts/localsInOut.json', function(err, contractjson) {
               console.log(err, contractjson);
               self.web3wallet.web3.eth.getGasPrice(function(err, result) {
@@ -127,14 +132,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 var MyContract = self.web3wallet.web3.eth.contract(contractjson.abi);
                 var myContractInstance = MyContract.at(contractjson.address);
                 var account = app.helpers.fixaddress(self.web3wallet.account);
-
- // function newOffer(
- //    //address _claimer,
- //    uint _amount,
- //    string _descriptionipfs,
- //    uint _validityStart,
- //    uint _duration
- //  )
 
                 result = myContractInstance.newOffer.sendTransaction(self.value, res[0].Hash, self.offer.start,self.offer.duration, {
                     from: account,
