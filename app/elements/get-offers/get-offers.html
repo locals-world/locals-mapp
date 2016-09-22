@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="get-offers">
   <template>
@@ -17,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     display: block;
   }
   </style>
+  <iron-ajax handle-as="json"></iron-ajax>
 </template>
 <script>
 (function() {
@@ -50,7 +52,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     getdata: function() {
       console.log('getting data');
-      this.ipfsupload = document.getElementById('ipfsupload');
       var self = this;
       app.helpers.getfile('../../contracts/localsInOut.json', function(err, contractjson) {
         var MyContract = self.web3.eth.contract(contractjson.abi);
@@ -67,36 +68,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           self.loadIPFSdata(offers[3], function(object) {
             console.log(object);
           });
-          //self.ipfsupload.get(offers[3], function() {
-
         };
       });
     },
 
     loadIPFSdata: function(ipfshash, fn) {
-      this.ipfsapihost = '/ip4/109.123.70.141/tcp/8080';
-      this.ipfsclient = window.ipfsAPI(this.ipfsapihost);
-      var self = this;
-
-      var buf = '';
-
-      this.ipfsclient.cat(ipfshash, function(err, res) {
-        if (err) {
-          console.log('ipfs error', ipfshash, err);
-          return;
-        }
-        res
-          .on('error', function(err) {
-            throw (err);
-          })
-          .on('data', function(data) {
-            buf += data;
-          })
-          .on('end', function() {
-            var ipfsData = JSON.parse(buf);
-            fn(ipfsData);
-          });
-      });
+      var ajax = document.querySelector('iron-ajax');
+      ajax.url = 'https://gateway.ipfs.io/ipfs/'+ipfshash;
+      ajax.generateRequest();
+      ajax.addEventListener('response', function(e) {
+        console.log(e);
+        fn(e);
+      }.bind(this));
     }
 
 });
