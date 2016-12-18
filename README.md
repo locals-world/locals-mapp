@@ -1,5 +1,5 @@
 
-#Here you'll find the source code for the Arcade City front end app.
+#Here you'll find the source code for the Locals Mapp.
 
 ## installing
 - npm install
